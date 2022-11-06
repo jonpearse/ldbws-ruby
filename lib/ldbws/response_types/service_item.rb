@@ -2,14 +2,40 @@ require "ldbws/response_types/base"
 require "ldbws/response_types/calling_point"
 
 module Ldbws::ResponseTypes
+  # Represents a location in LDBWS.
+  #
+  # === Properties
+  # name::
+  # crs::
+  # via::
   class Location < Base
     property :name, String, selector: "locationName"
     property :crs, String
     property :via, String
   end
 
+  # Represents a service item in LDBWS.
   #
-
+  # === Properties
+  # sta:: the scheduled arrival time as a Time object
+  # eta:: the estimated arrival time as a string
+  # std:: the scheduled departure time as a Time object
+  # etd:: the estimated departure time as a string
+  # platform::
+  # operator::
+  # operator_code::
+  # circular_route::
+  # cancelled::
+  # service_type::
+  # length::
+  # detatch_front::
+  # reverse_formation::
+  # cancel_reason::
+  # delay_reason::
+  # service_id::
+  # adhoc_alerts::
+  # origin::
+  # destination::
   class ServiceItem < Base
     property :sta, Time
     property :eta, String
@@ -32,6 +58,13 @@ module Ldbws::ResponseTypes
     collection :destination, "location", Location
   end
 
+  # Represents a service item with additional details in LDBWS: extends ServiceItem.
+  #
+  # === Properties
+  # As ServiceItem, and additionally:
+  #
+  # previous_calling_points::
+  # subsequent_calling_points::
   class ServiceItemWithCallingPoints < ServiceItem
     collection :previous_calling_points, "callingPointList/callingPoint", CallingPoint
     collection :subsequent_calling_points, "callingPointList/callingPoint", CallingPoint

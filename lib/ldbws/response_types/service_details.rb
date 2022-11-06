@@ -1,6 +1,35 @@
 require "ldbws/response_types/base"
 
 module Ldbws::ResponseTypes
+  # Represents details about a service in LDBWS.
+  #
+  # === Properties
+  # generatedAt::
+  # service_type::
+  # location_name::
+  # crs::
+  # operator::
+  # operator_code::
+  # rsid::
+  # cancelled::
+  # cancel_reason::
+  # delay_reason::
+  # overdue_message::
+  # length::
+  # detach_front::
+  # reverse_formation::
+  # platform::
+  # sta:: the scheduled arrival time as a Time object.
+  # eta:: the estimated arrival time, as a string
+  # ata:: the actual arrival time, as a string
+  # std:: the scheduled departure time as a Time object
+  # etd:: the estimated departure time, as a string
+  # atd:: the actual departure time, as a String
+  # diverted_via::
+  # diversion_reason::
+  # adhoc_alerts::
+  # previous_calling_points::
+  # subsequent_calling_points::
   class ServiceDetails < Base
     # from rtti_2017-10-01_ldb_types.xsd // BaseServiceDetails
     property :generated_at, DateTime

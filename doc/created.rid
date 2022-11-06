@@ -1,0 +1,19 @@
+Sun, 06 Nov 2022 15:27:23 +0000
+LICENSE	Thu, 06 Oct 2022 18:25:44 +0100
+README.md	Sun, 06 Nov 2022 15:24:38 +0000
+lib/ldbws/http_request.rb	Sun, 06 Nov 2022 15:24:38 +0000
+lib/ldbws/request/base.rb	Sun, 06 Nov 2022 15:24:38 +0000
+lib/ldbws/request/get_departures_board.rb	Sun, 06 Nov 2022 15:24:38 +0000
+lib/ldbws/request/get_service_details.rb	Sun, 06 Nov 2022 15:24:38 +0000
+lib/ldbws/request/get_station_board.rb	Sun, 06 Nov 2022 15:24:38 +0000
+lib/ldbws/response_types/base.rb	Sun, 06 Nov 2022 15:24:38 +0000
+lib/ldbws/response_types/calling_point.rb	Sun, 06 Nov 2022 15:24:38 +0000
+lib/ldbws/response_types/departures_board.rb	Sun, 06 Nov 2022 15:24:38 +0000
+lib/ldbws/response_types/parsing_functions.rb	Sun, 06 Nov 2022 15:24:38 +0000
+lib/ldbws/response_types/service_details.rb	Sun, 06 Nov 2022 15:24:38 +0000
+lib/ldbws/response_types/service_item.rb	Sun, 06 Nov 2022 15:24:38 +0000
+lib/ldbws/response_types/station_board.rb	Sun, 06 Nov 2022 15:24:38 +0000
+lib/ldbws/service.rb	Sun, 06 Nov 2022 15:24:38 +0000
+lib/ldbws/utils.rb	Sun, 06 Nov 2022 15:24:38 +0000
+lib/ldbws/version.rb	Sun, 06 Nov 2022 15:24:38 +0000
+lib/ldbws.rb	Sun, 06 Nov 2022 15:24:38 +0000
