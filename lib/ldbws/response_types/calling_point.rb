@@ -1,4 +1,5 @@
 require "ldbws/response_types/base"
+require "ldbws/response_types/formation"
 
 module Ldbws::ResponseTypes
   # Represents a calling point in the LDBWS.
@@ -12,6 +13,7 @@ module Ldbws::ResponseTypes
   # cancelled::
   # length::
   # detatch_front::
+  # formation:: information about the formation of the train
   # adhoc_alerts::
   # cancel_reason::
   # delay_reason::
@@ -27,6 +29,7 @@ module Ldbws::ResponseTypes
     property :cancelled, Boolean, selector: "isCancelled"
     property :length, Integer
     property :detatch_front, Boolean, default: false
+    property :formation, Formation
     collection :adhoc_alerts, "adhocAlertText", String
     property :cancel_reason, String
     property :delay_reason, String

@@ -1,5 +1,6 @@
 require "ldbws/response_types/base"
 require "ldbws/response_types/calling_point"
+require "ldbws/response_types/formation"
 
 module Ldbws::ResponseTypes
   # Represents a location in LDBWS.
@@ -36,6 +37,7 @@ module Ldbws::ResponseTypes
   # adhoc_alerts::
   # origin::
   # destination::
+  # formation:: information about the formation of the train
   class ServiceItem < Base
     property :sta, Time
     property :eta, String
@@ -56,6 +58,9 @@ module Ldbws::ResponseTypes
     collection :adhoc_alerts, "adhocAlertText", String
     collection :origin, "location", Location
     collection :destination, "location", Location
+
+    # rtti_2021-11-01_ldb_types.xsd
+    property :formation, Formation
   end
 
   # Represents a service item with additional details in LDBWS: extends ServiceItem.

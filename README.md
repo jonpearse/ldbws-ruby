@@ -37,8 +37,6 @@ end
 ## TODO
 
 - [ ] write tests
-- [x] write documentation
-- [ ] parse train formation information
 - [ ] provide nicer wrapping of API calls to allow for caching/etc (technically complete, but I don’t like it)
 - [ ] release as a gem
 
