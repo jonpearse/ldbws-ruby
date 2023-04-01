@@ -48,7 +48,9 @@ module Ldbws::Request # :nodoc:
     # xml:: the {XML node}[rdoc-ref:Nokogiri::XML::Node] that should contain the response to this request.
     def from_soap(xml)
       result_node = xml.xpath(self.class::RESULT_XPATH).first
-      raise "Oh no" unless result_node
+      unless result_node
+        raise Ldbws::ResponseParsingError("Root node not found (#{self.class::RESULT_XPATH})")
+      end
 
       self.class::RESULT_TYPE.from_xml(result_node)
     end
@@ -64,6 +66,16 @@ module Ldbws::Request # :nodoc:
     end
   end
 
-  # Represents an error that occurs when request parameters cannot be validated.
-  class ParamValidationError < RuntimeError; end # :nodoc:
+  # Raised when an error occurs when validating request parameters. Messages are passed through directly from
+  # {dry-schema}[https://dry-rb.org/gems/dry-schema/1.10/].
+  class ParamValidationError < RuntimeError
+    def initialize(messages) # :nodoc:
+      @messages = messages.to_h
+    end
+
+    # Returns the validation error messages as a hash.
+    def messages
+      @messages
+    end
+  end
 end
