@@ -179,7 +179,7 @@ module Ldbws
       xml.remove_namespaces!
 
       response_node = xml.xpath("//#{root_node}Response").first
-      raise "Oh no" unless response_node
+      return extract_error(xml) unless response_node
 
       request.from_soap(response_node)
     end
@@ -213,6 +213,16 @@ module Ldbws
       )
 
       conn.post(uri.path, body).body
+    end
+
+    def extract_error(xml)
+      # attempt to work out what the error is from the response, or fail with a general error
+      fault_node = xml.xpath("/Envelope/Body/Fault").first
+      raise Ldbws::ParsingError.new("Could not parse the response from the server") unless fault_node
+
+      # try and acquire information from the server
+      details = fault_node.children.map { |child| [child.name.to_sym, child.text] }.to_h
+      raise Ldbws::RequestError.new(details)
     end
   end
 end

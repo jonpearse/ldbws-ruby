@@ -75,6 +75,18 @@
               </ul>
             </details>
           </li>
+          <li>
+            <details open>
+              <summary>      <a href="#label-Error-handling">Error-handling</a>
+</summary>
+              <ul class="link-list" role="directory">
+                          <li>      <a href="#label-Ldbws-3A-3ARequest-3A-3AParamValidationError"><code>Ldbws::Request::ParamValidationError</code></a>
+          <li>      <a href="#label-Ldbws-3A-3ARequestError"><code>Ldbws::RequestError</code></a>
+          <li>      <a href="#label-Ldbws-3A-3AResponseParsingError"><code>Ldbws::ResponseParsingError</code></a>
+
+              </ul>
+            </details>
+          </li>
           <li>      <a href="#label-Caveats">Caveats</a>
 
               </ul>
@@ -111,7 +123,7 @@
 
 <p>All operations are supported, in <code>snake_case</code>, thus:</p>
 
-<pre class="ruby"><span class="ruby-identifier">require</span> <span class="ruby-string">&quot;path/to/ldbws&quot;</span>
+<pre class="ruby"><span class="ruby-identifier">require</span> <span class="ruby-string">&quot;ldbws&quot;</span>
 
 <span class="ruby-identifier">service</span> = <span class="ruby-constant">Ldbws</span>.<span class="ruby-identifier">service</span>(<span class="ruby-constant">YOUR_API_TOKEN</span>)
 <span class="ruby-identifier">result</span> = <span class="ruby-identifier">service</span>.<span class="ruby-identifier">get_departure_board</span>(<span class="ruby-value">crs:</span> <span class="ruby-string">&quot;CDF&quot;</span>)
@@ -139,6 +151,29 @@
 <h3 id="label-A+note+about+rate+limiting">A note about rate limiting<span><a href="#label-A+note+about+rate+limiting">&para;</a> <a href="#top">&uarr;</a></span></h3>
 
 <p>LDBWS uses rate-limiting for free access: while this <em>probably</em> isn’t going to be an issue for the casual user, you may want to consider using a cache in front of this gem, just in case.</p>
+
+<h2 id="label-Error-handling">Error-handling<span><a href="#label-Error-handling">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>This module is pretty decent at validating request parameters, but beyond that all it can really do is just echo what LDBWS says. To wit, there are three errors that can be raised:</p>
+
+<h3 id="label-Ldbws-3A-3ARequest-3A-3AParamValidationError"><code>Ldbws::Request::ParamValidationError</code><span><a href="#label-Ldbws-3A-3ARequest-3A-3AParamValidationError">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>This is raised when parameter validation fails. Details about exactly which parameters and why can be found using the <code>#messages</code>, and is provided in hash format, thus:</p>
+
+<pre class="ruby"><span class="ruby-keyword">begin</span>
+        <span class="ruby-identifier">service</span>.<span class="ruby-identifier">get_departure_board</span>
+<span class="ruby-keyword">rescue</span> <span class="ruby-constant">Ldbws</span><span class="ruby-operator">::</span><span class="ruby-constant">Request</span><span class="ruby-operator">::</span><span class="ruby-constant">ParamValidationError</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
+        <span class="ruby-comment"># e = { crs: &quot;is missing&quot; }</span>
+<span class="ruby-keyword">end</span>
+</pre>
+
+<h3 id="label-Ldbws-3A-3ARequestError"><code>Ldbws::RequestError</code><span><a href="#label-Ldbws-3A-3ARequestError">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>Raised when LDBWS returns an error message, usually because the request is bad (eg: invalid CRS). Unfortunately LDBWS’ error messages are pretty terrible, so it’s generally not too edifying to look at them.</p>
+
+<h3 id="label-Ldbws-3A-3AResponseParsingError"><code>Ldbws::ResponseParsingError</code><span><a href="#label-Ldbws-3A-3AResponseParsingError">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>Raised when the response from LDBWS cannot be parsed.</p>
 
 <h2 id="label-Caveats">Caveats<span><a href="#label-Caveats">&para;</a> <a href="#top">&uarr;</a></span></h2>
 
