@@ -9,7 +9,7 @@ I built it for a project I’m hacking at + thought I’d release it into the wo
 All operations are supported, in `snake_case`, thus:
 
 ```ruby
-require "path/to/ldbws"
+require "ldbws"
 
 service = Ldbws.service(YOUR_API_TOKEN)
 result = service.get_departure_board(crs: "CDF")
@@ -37,6 +37,30 @@ end
 ### A note about rate limiting
 
 LDBWS uses rate-limiting for free access: while this <i>probably</i> isn’t going to be an issue for the casual user, you may want to consider using a cache in front of this gem, just in case.
+
+## Error-handling
+
+This module is pretty decent at validating request parameters, but beyond that all it can really do is just echo what LDBWS says. To wit, there are three errors that can be raised:
+
+### `Ldbws::Request::ParamValidationError`
+
+This is raised when parameter validation fails. Details about exactly which parameters and why can be found using the `#messages`, and is provided in hash format, thus:
+
+```ruby
+begin
+	service.get_departure_board
+rescue Ldbws::Request::ParamValidationError => e
+	# e = { crs: "is missing" }
+end
+```
+
+### `Ldbws::RequestError`
+
+Raised when LDBWS returns an error message, usually because the request is bad (eg: invalid CRS). Unfortunately LDBWS’ error messages are pretty terrible, so it’s generally not too edifying to look at them.
+
+### `Ldbws::ResponseParsingError`
+
+Raised when the response from LDBWS cannot be parsed.
 
 ## Caveats
 
