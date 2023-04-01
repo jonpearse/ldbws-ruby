@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class Ldbws::ResponseTypes::ServiceDetails - RDoc Documentation</title>
+<title>class Ldbws::ResponseTypes::ToiletAvailability - RDoc Documentation</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
@@ -70,58 +70,23 @@
   </div>
 </nav>
 
-<main role="main" aria-labelledby="class-Ldbws::ResponseTypes::ServiceDetails">
-  <h1 id="class-Ldbws::ResponseTypes::ServiceDetails" class="class">
-    class Ldbws::ResponseTypes::ServiceDetails
+<main role="main" aria-labelledby="class-Ldbws::ResponseTypes::ToiletAvailability">
+  <h1 id="class-Ldbws::ResponseTypes::ToiletAvailability" class="class">
+    class Ldbws::ResponseTypes::ToiletAvailability
   </h1>
 
   <section class="description">
     
-<p>Represents details about a service in LDBWS.</p>
+<p>The availability of an individual toilet on a train</p>
 
-<h3 id="class-Ldbws::ResponseTypes::ServiceDetails-label-Properties">Properties<span><a href="#class-Ldbws::ResponseTypes::ServiceDetails-label-Properties">&para;</a> <a href="#top">&uarr;</a></span></h3>
-<dl class="rdoc-list note-list"><dt>generatedAt
-<dt>service_type
-<dt>location_name
-<dt>crs
-<dt>operator
-<dt>operator_code
-<dt>rsid
-<dt>cancelled
-<dt>cancel_reason
-<dt>delay_reason
-<dt>overdue_message
-<dt>length
-<dt>detach_front
-<dt>reverse_formation
-<dt>platform
-<dt>sta
+<h3 id="class-Ldbws::ResponseTypes::ToiletAvailability-label-Properties">Properties<span><a href="#class-Ldbws::ResponseTypes::ToiletAvailability-label-Properties">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<dl class="rdoc-list note-list"><dt>type
 <dd>
-<p>the scheduled arrival time as a Time object.</p>
-</dd><dt>eta
+<p>the type of toilet</p>
+</dd><dt>status
 <dd>
-<p>the estimated arrival time, as a string</p>
-</dd><dt>ata
-<dd>
-<p>the actual arrival time, as a string</p>
-</dd><dt>std
-<dd>
-<p>the scheduled departure time as a Time object</p>
-</dd><dt>etd
-<dd>
-<p>the estimated departure time, as a string</p>
-</dd><dt>atd
-<dd>
-<p>the actual departure time, as a String</p>
-</dd><dt>diverted_via
-<dt>diversion_reason
-<dt>adhoc_alerts
-<dt>formation
-<dd>
-<p>information about the formation of the train</p>
-</dd><dt>previous_calling_points
-<dt>subsequent_calling_points
-<dd></dd></dl>
+<p>whether the toilet is in- or out of service</p>
+</dd></dl>
 
   </section>
 

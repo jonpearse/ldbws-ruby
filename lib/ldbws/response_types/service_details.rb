@@ -1,4 +1,5 @@
 require "ldbws/response_types/base"
+require "ldbws/response_types/formation"
 
 module Ldbws::ResponseTypes
   # Represents details about a service in LDBWS.
@@ -28,6 +29,7 @@ module Ldbws::ResponseTypes
   # diverted_via::
   # diversion_reason::
   # adhoc_alerts::
+  # formation:: information about the formation of the train
   # previous_calling_points::
   # subsequent_calling_points::
   class ServiceDetails < Base
@@ -60,6 +62,7 @@ module Ldbws::ResponseTypes
 
     # From rtti_2021-11-01_ldb_types.xsd // ServiceDetails
     collection :adhoc_alerts, "adhocAlertText", String
+    property :formation, Formation
     collection :previous_calling_points, "callingPointList/callingPoint", CallingPoint
     collection :subsequent_calling_points, "callingPointList/callingPoint", CallingPoint
   end
