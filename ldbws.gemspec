@@ -19,6 +19,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "faraday", "~> 2.6"
   spec.add_dependency "nokogiri", "~> 1.13"
 
+  spec.add_development_dependency "rdoc", "~> 6.5.0"
   spec.add_development_dependency "rspec", "~> 3.11"
   spec.add_development_dependency "rufo", "~> 0.13.0"
 end

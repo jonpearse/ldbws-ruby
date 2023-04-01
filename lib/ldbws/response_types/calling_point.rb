@@ -1,6 +1,23 @@
 require "ldbws/response_types/base"
 
 module Ldbws::ResponseTypes
+  # Represents a calling point in the LDBWS.
+  #
+  # === Properties
+  # location_name:: the name of the station
+  # crs:: the CRS of the station
+  # st:: the scheduled time (as a Time object)
+  # et:: the expected time (as a String)
+  # at:: the actual time (as a string)
+  # cancelled::
+  # length::
+  # detatch_front::
+  # adhoc_alerts::
+  # cancel_reason::
+  # delay_reason::
+  # affected_by_diversion::
+  # reroute_delay::
+  # affected_by::
   class CallingPoint < Base
     property :location_name, String
     property :crs, String

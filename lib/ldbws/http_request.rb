@@ -2,7 +2,7 @@ require "faraday"
 require "uri"
 
 module Ldbws
-  class HttpRequest
+  class HttpRequest # :nodoc: all
     def self.send(url, soap_action, body)
       uri = URI(url)
 
