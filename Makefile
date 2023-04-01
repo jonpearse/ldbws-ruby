@@ -1,0 +1,2 @@
+fmt:
+	rufo lib
