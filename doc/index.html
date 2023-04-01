@@ -135,26 +135,21 @@
 <span class="ruby-keyword">end</span>
 
 <span class="ruby-comment"># TIME   PLAT  TO</span>
-<span class="ruby-comment"># 22:15   1    Warminster  (Great Western Railway)</span>
-<span class="ruby-comment"># 22:24   7    Barry Island  (Transport for Wales)</span>
-<span class="ruby-comment"># 22:26   2    Gloucester  (Transport for Wales)</span>
-<span class="ruby-comment"># 22:30   3A   Carmarthen  (Transport for Wales)</span>
-<span class="ruby-comment"># 22:39   4    Swansea  (Great Western Railway)</span>
+<span class="ruby-comment"># 17:32   -    Penarth  (Transport for Wales)</span>
+<span class="ruby-comment"># 17:39   3    Swansea  (Great Western Railway)</span>
+<span class="ruby-comment"># 17:55   8    Barry  (Transport for Wales)</span>
+<span class="ruby-comment"># 17:56   2A   Manchester Piccadilly  (Transport for Wales)</span>
+<span class="ruby-comment"># 18:01   6    Bargoed  (Transport for Wales)</span>
 <span class="ruby-comment"># [etc]</span>
 </pre>
 
-<h2 id="label-TODO">TODO<span><a href="#label-TODO">&para;</a> <a href="#top">&uarr;</a></span></h2>
-<ul><li>
-<p>[ ] write tests</p>
-</li><li>
-<p>[ ] provide nicer wrapping of API calls to allow for caching/etc (technically complete, but I don’t like it)</p>
-</li><li>
-<p>[ ] release as a gem</p>
-</li></ul>
+<h3 id="label-A+note+about+rate+limiting">A note about rate limiting<span><a href="#label-A+note+about+rate+limiting">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>LDBWS uses rate-limiting for free access: while this <em>probably</em> isn’t going to be an issue for the casual user, you may want to consider using a cache in front of this gem, just in case.</p>
 
 <h2 id="label-Caveats">Caveats<span><a href="#label-Caveats">&para;</a> <a href="#top">&uarr;</a></span></h2>
 
-<p>This is released into the world as-is. If you use it for something and end up missing your train, it’s not my fault :)</p>
+<p>This is released into the world as-is. If you use it for something and end up missing your train, or do something that falls foul of the LDBWS terms of use, it’s not my fault :)</p>
 <hr>
 
 <p>Share and enjoy!</p>

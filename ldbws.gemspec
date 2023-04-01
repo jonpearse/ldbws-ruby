@@ -15,9 +15,9 @@ Gem::Specification.new do |spec|
   spec.version = Ldbws::VERSION
   spec.files = `git ls-files`.split($\)
 
-  spec.add_dependency "dry-schema", "~> 1.10"
-  spec.add_dependency "faraday", "~> 2.6"
-  spec.add_dependency "nokogiri", "~> 1.13"
+  spec.add_dependency "dry-schema", "~> 1.13"
+  spec.add_dependency "faraday", "~> 2.7"
+  spec.add_dependency "nokogiri", "~> 1.14"
 
   spec.add_development_dependency "rdoc", "~> 6.5.0"
   spec.add_development_dependency "rspec", "~> 3.11"

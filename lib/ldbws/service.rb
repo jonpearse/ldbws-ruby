@@ -1,6 +1,7 @@
+require "faraday"
 require "nokogiri"
+require "uri"
 
-require "ldbws/http_request"
 require "ldbws/request/get_departures_board"
 require "ldbws/request/get_service_details"
 require "ldbws/request/get_station_board"
@@ -24,27 +25,6 @@ module Ldbws
   # Individual requests use Request[rdoc-ref:Request] objects to validate input parameters, and this is noted below. See
   # the corresponding request object for each method for further information as to the parameters.
   #
-  # === Caching requests
-  #
-  # <i>⚠️ Warning: this is subject to change: the current behaviour is just a bit horrible! ⚠️</i>
-  #
-  # LDBWS implements restrictions on the number of requests that are made in a given time period. The casual user is
-  # (probably) unlikely to hit them, but if you’re building any kind of automated service or initially beginning to
-  # play around with the system, you might want to cache responses to avoid tempting fate.
-  #
-  # To facilitiate this, the constructor for this class takes an optional second parameter allowing a developer to
-  # override the internal code that makes the HTTP request (yes, this is gronky: I’m open to suggestions). Any class/instance
-  # passed into this argument must specify a +#send+ method that takes three parameters and makes a POST request, returning
-  # the content of the response body.
-  #
-  # The parameters are:
-  #
-  # url:: the URL to make the request to, as a string.
-  # soap_action:: the value of the +SOAPAction+ header that will be sent with the request.
-  # body:: the body of the request, as a string.
-  #
-  # How exactly this works internally is left as an exercise to the implementor :)
-  #
   # === Side note
   #
   # The official documentation for this web service is… lacking. While an attempt has been made to elucidate on both the
@@ -56,10 +36,8 @@ module Ldbws
     #
     # === Parameters
     # token:: the API token used to connect to the service
-    # request_klass:: a module or instance of a class used to make the request to the service (optional)
-    def initialize(token, request_klass = Ldbws::HttpRequest)
+    def initialize(token)
       @token = token
-      @requester = request_klass
     end
 
     # Retrieves a station departure board.
@@ -67,7 +45,7 @@ module Ldbws
     # Parameters are validated using GetStationBoard[rdoc-ref:Request::GetStationBoard], returns a
     # StationBoard[rdoc-ref:ResponseTypes::StationBoard] object.
     def get_departure_board(params)
-      do_request(
+      request(
         "http://thalesgroup.com/RTTI/2012-01-13/ldb/GetDepartureBoard",
         Request::GetStationBoard.new(params)
       )
@@ -78,7 +56,7 @@ module Ldbws
     # Parameters are validated using GetStationBoard[rdoc-ref:Request::GetStationBoard], returns a
     # StationBoard[rdoc-ref:ResponseTypes::StationBoard] object.
     def get_arrival_board(params)
-      do_request(
+      request(
         "http://thalesgroup.com/RTTI/2012-01-13/ldb/GetArrivalBoard",
         Request::GetStationBoard.new(params)
       )
@@ -89,7 +67,7 @@ module Ldbws
     # Parameters are validated using GetStationBoard[rdoc-ref:Request::GetStationBoard], returns a
     # StationBoard[rdoc-ref:ResponseTypes::StationBoard] object.
     def get_arrival_departure_board(params)
-      do_request(
+      request(
         "http://thalesgroup.com/RTTI/2012-01-13/ldb/GetArrivalDepartureBoard",
         Request::GetStationBoard.new(params)
       )
@@ -100,7 +78,7 @@ module Ldbws
     # Parameters are validated using GetStationBoardWithDetails[rdoc-ref:Request:GetStationBoardWithDetails], returns a
     # StationBoardWithDetails[rdoc-ref:ResponseTypes::StationBoardWithDetails] object.
     def get_dep_board_with_details(params)
-      do_request(
+      request(
         "http://thalesgroup.com/RTTI/2015-05-14/ldb/GetDepBoardWithDetails",
         Request::GetStationBoardWithDetails.new(params)
       )
@@ -111,7 +89,7 @@ module Ldbws
     # Parameters are validated using GetStationBoardWithDetails[rdoc-ref:Request:GetStationBoardWithDetails], returns a
     # StationBoardWithDetails[rdoc-ref:ResponseTypes::StationBoardWithDetails] object.
     def get_arr_board_with_details(params)
-      do_request(
+      request(
         "http://thalesgroup.com/RTTI/2015-05-14/ldb/GetArrBoardWithDetails",
         Request::GetStationBoardWithDetails.new(params)
       )
@@ -122,7 +100,7 @@ module Ldbws
     # Parameters are validated using GetStationBoardWithDetails[rdoc-ref:Request:GetStationBoardWithDetails], returns a
     # StationBoardWithDetails[rdoc-ref:ResponseTypes::StationBoardWithDetails] object.
     def get_arr_dep_board_with_details(params)
-      do_request(
+      request(
         "http://thalesgroup.com/RTTI/2015-05-14/ldb/GetArrDepBoardWithDetails",
         Request::GetStationBoardWithDetails.new(params)
       )
@@ -133,7 +111,7 @@ module Ldbws
     # Parameters are validated using GetDeparturesBoard[rdoc-ref:Request::GetDeparturesBoard], returns a
     # DeparturesBoard[rdoc-ref:ResponseTypes::DeparturesBoard] object.
     def get_next_departures(params)
-      do_request(
+      request(
         "http://thalesgroup.com/RTTI/2015-05-14/ldb/GetNextDepartures",
         Request::GetDeparturesBoard.new(params)
       )
@@ -144,7 +122,7 @@ module Ldbws
     # Parameters are validated using GetDeparturesBoard[rdoc-ref:Request::GetDeparturesBoard], returns a
     # DeparturesBoard[rdoc-ref:ResponseTypes::DeparturesBoard] object.
     def get_next_departures(params)
-      do_request(
+      request(
         "http://thalesgroup.com/RTTI/2015-05-14/ldb/GetFastestDepartures",
         Request::GetDeparturesBoard.new(params)
       )
@@ -155,7 +133,7 @@ module Ldbws
     # Parameters are validated using GetDeparturesBoardWithDetails[rdoc-ref:Request::GetDeparturesBoardWithDetails],
     # returns a DeparturesBoardWithDetails[rdoc-ref:ResponseTypes::DeparturesBoardWithDetails] object.
     def get_next_departures_with_details(params)
-      do_request(
+      request(
         "http://thalesgroup.com/RTTI/2015-05-14/ldb/GetNextDeparturesWithDetails",
         Request::GetDeparturesBoardWithDetails.new(params)
       )
@@ -166,7 +144,7 @@ module Ldbws
     # Parameters are validated using GetDeparturesBoardWithDetails[rdoc-ref:Request::GetDeparturesBoardWithDetails],
     # returns a DeparturesBoardWithDetails[rdoc-ref:ResponseTypes::DeparturesBoardWithDetails] object.
     def get_fastest_departures_with_details(params)
-      do_request(
+      request(
         "http://thalesgroup.com/RTTI/2015-05-14/ldb/GetFastestDeparturesWithDetails",
         Request::GetDeparturesBoardWithDetails.new(params)
       )
@@ -177,7 +155,7 @@ module Ldbws
     # Parameters are validated using GetServiceDetails[rdoc-ref:Request::GetServiceDetails], returns a
     # ServiceDetails[rdoc-ref:ResponseTypes::ServiceDetails] object.
     def get_service_details(params)
-      do_request(
+      request(
         "http://thalesgroup.com/RTTI/2012-01-13/ldb/GetServiceDetails",
         Request::GetServiceDetails.new(params)
       )
@@ -189,12 +167,12 @@ module Ldbws
 
     private
 
-    def do_request(soap_action, request)
+    def request(soap_action, request)
       root_node = soap_action.split("/").last
       soap_in = create_soap_request(request, root_node)
 
       # Fire it off
-      soap_response = @requester.send(SERVICE_URI, soap_action, soap_in)
+      soap_response = perform_soap_request(soap_action, soap_in)
 
       # Parse
       xml = Nokogiri::XML(soap_response)
@@ -221,6 +199,20 @@ module Ldbws
           }
         }
       end.to_xml
+    end
+
+    def perform_soap_request(action, body)
+      uri = URI(SERVICE_URI)
+
+      conn = Faraday.new(
+        url: "#{uri.scheme}://#{uri.host}",
+        headers: {
+          'Content-Type': "text/xml",
+          'SOAPAction': action,
+        },
+      )
+
+      conn.post(uri.path, body).body
     end
   end
 end

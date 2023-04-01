@@ -26,23 +26,21 @@ result.train_services.each do |service|
 end
 
 # TIME   PLAT  TO
-# 22:15   1    Warminster  (Great Western Railway)
-# 22:24   7    Barry Island  (Transport for Wales)
-# 22:26   2    Gloucester  (Transport for Wales)
-# 22:30   3A   Carmarthen  (Transport for Wales)
-# 22:39   4    Swansea  (Great Western Railway)
+# 17:32   -    Penarth  (Transport for Wales)
+# 17:39   3    Swansea  (Great Western Railway)
+# 17:55   8    Barry  (Transport for Wales)
+# 17:56   2A   Manchester Piccadilly  (Transport for Wales)
+# 18:01   6    Bargoed  (Transport for Wales)
 # [etc]
 ```
 
-## TODO
+### A note about rate limiting
 
-- [ ] write tests
-- [ ] provide nicer wrapping of API calls to allow for caching/etc (technically complete, but I don’t like it)
-- [ ] release as a gem
+LDBWS uses rate-limiting for free access: while this <i>probably</i> isn’t going to be an issue for the casual user, you may want to consider using a cache in front of this gem, just in case.
 
 ## Caveats
 
-This is released into the world as-is. If you use it for something and end up missing your train, it’s not my fault :)
+This is released into the world as-is. If you use it for something and end up missing your train, or do something that falls foul of the LDBWS terms of use, it’s not my fault :)
 
 ---
 

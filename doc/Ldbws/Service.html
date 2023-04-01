@@ -61,7 +61,6 @@
 
   <ul class="link-list" role="directory">
               <li>      <a href="#class-Ldbws::Service-label-Usage+example">Usage example</a>
-          <li>      <a href="#class-Ldbws::Service-label-Caching+requests">Caching requests</a>
           <li>      <a href="#class-Ldbws::Service-label-Side+note">Side note</a>
 
   </ul>
@@ -126,28 +125,6 @@
 
 <p>Will furnish you with a list of all departures from Cardiff Central. Other methods work pretty much as you’d expect if you’ve any familiarity with the service. Individual requests use <a href="Request.html"><code>Request</code></a> objects to validate input parameters, and this is noted below. See the corresponding request object for each method for further information as to the parameters.</p>
 
-<h3 id="class-Ldbws::Service-label-Caching+requests">Caching requests<span><a href="#class-Ldbws::Service-label-Caching+requests">&para;</a> <a href="#top">&uarr;</a></span></h3>
-
-<p><em>⚠️ Warning: this is subject to change: the current behaviour is just a bit horrible! ⚠️</em></p>
-
-<p>LDBWS implements restrictions on the number of requests that are made in a given time period. The casual user is (probably) unlikely to hit them, but if you’re building any kind of automated service or initially beginning to play around with the system, you might want to cache responses to avoid tempting fate.</p>
-
-<p>To facilitiate this, the constructor for this class takes an optional second parameter allowing a developer to override the internal code that makes the HTTP request (yes, this is gronky: I’m open to suggestions). Any class/instance passed into this argument must specify a <code>#send</code> method that takes three parameters and makes a POST request, returning the content of the response body.</p>
-
-<p>The parameters are:</p>
-<dl class="rdoc-list note-list"><dt>url
-<dd>
-<p>the URL to make the request to, as a string.</p>
-</dd><dt>soap_action
-<dd>
-<p>the value of the <code>SOAPAction</code> header that will be sent with the request.</p>
-</dd><dt>body
-<dd>
-<p>the body of the request, as a string.</p>
-</dd></dl>
-
-<p>How exactly this works internally is left as an exercise to the implementor :)</p>
-
 <h3 id="class-Ldbws::Service-label-Side+note">Side note<span><a href="#class-Ldbws::Service-label-Side+note">&para;</a> <a href="#top">&uarr;</a></span></h3>
 
 <p>The official documentation for this web service is… lacking. While an attempt has been made to elucidate on both the request parameters and response properties, it shouldn’t be taken as any kind of source of truth. Caveat emptor.</p>
@@ -169,7 +146,7 @@
         <div class="method-header">
           <div class="method-heading">
             <span class="method-name">new</span><span
-              class="method-args">(token, request_klass = Ldbws::HttpRequest)</span>
+              class="method-args">(token)</span>
             <span class="method-click-advice">click to toggle source</span>
           </div>
         </div>
@@ -181,16 +158,12 @@
 <dl class="rdoc-list note-list"><dt>token
 <dd>
 <p>the API token used to connect to the service</p>
-</dd><dt>request_klass
-<dd>
-<p>a module or instance of a class used to make the request to the service (optional)</p>
 </dd></dl>
 
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/ldbws/service.rb, line 60</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-identifier">token</span>, <span class="ruby-identifier">request_klass</span> = <span class="ruby-constant">Ldbws</span><span class="ruby-operator">::</span><span class="ruby-constant">HttpRequest</span>)
+            <pre><span class="ruby-comment"># File lib/ldbws/service.rb, line 39</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-identifier">token</span>)
   <span class="ruby-ivar">@token</span> = <span class="ruby-identifier">token</span>
-  <span class="ruby-ivar">@requester</span> = <span class="ruby-identifier">request_klass</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
         </div>
@@ -220,9 +193,9 @@
 <p>Parameters are validated using <a href="Request/GetStationBoardWithDetails.html">GetStationBoardWithDetails</a>, returns a <a href="ResponseTypes/StationBoardWithDetails.html">StationBoardWithDetails</a> object.</p>
 
           <div class="method-source-code" id="get_arr_board_with_details-source">
-            <pre><span class="ruby-comment"># File lib/ldbws/service.rb, line 113</span>
+            <pre><span class="ruby-comment"># File lib/ldbws/service.rb, line 91</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_arr_board_with_details</span>(<span class="ruby-identifier">params</span>)
-  <span class="ruby-identifier">do_request</span>(
+  <span class="ruby-identifier">request</span>(
     <span class="ruby-string">&quot;http://thalesgroup.com/RTTI/2015-05-14/ldb/GetArrBoardWithDetails&quot;</span>,
     <span class="ruby-constant">Request</span><span class="ruby-operator">::</span><span class="ruby-constant">GetStationBoardWithDetails</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>)
   )
@@ -251,9 +224,9 @@
 <p>Parameters are validated using <a href="Request/GetStationBoardWithDetails.html">GetStationBoardWithDetails</a>, returns a <a href="ResponseTypes/StationBoardWithDetails.html">StationBoardWithDetails</a> object.</p>
 
           <div class="method-source-code" id="get_arr_dep_board_with_details-source">
-            <pre><span class="ruby-comment"># File lib/ldbws/service.rb, line 124</span>
+            <pre><span class="ruby-comment"># File lib/ldbws/service.rb, line 102</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_arr_dep_board_with_details</span>(<span class="ruby-identifier">params</span>)
-  <span class="ruby-identifier">do_request</span>(
+  <span class="ruby-identifier">request</span>(
     <span class="ruby-string">&quot;http://thalesgroup.com/RTTI/2015-05-14/ldb/GetArrDepBoardWithDetails&quot;</span>,
     <span class="ruby-constant">Request</span><span class="ruby-operator">::</span><span class="ruby-constant">GetStationBoardWithDetails</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>)
   )
@@ -282,9 +255,9 @@
 <p>Parameters are validated using <a href="Request/GetStationBoard.html">GetStationBoard</a>, returns a <a href="ResponseTypes/StationBoard.html">StationBoard</a> object.</p>
 
           <div class="method-source-code" id="get_arrival_board-source">
-            <pre><span class="ruby-comment"># File lib/ldbws/service.rb, line 80</span>
+            <pre><span class="ruby-comment"># File lib/ldbws/service.rb, line 58</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_arrival_board</span>(<span class="ruby-identifier">params</span>)
-  <span class="ruby-identifier">do_request</span>(
+  <span class="ruby-identifier">request</span>(
     <span class="ruby-string">&quot;http://thalesgroup.com/RTTI/2012-01-13/ldb/GetArrivalBoard&quot;</span>,
     <span class="ruby-constant">Request</span><span class="ruby-operator">::</span><span class="ruby-constant">GetStationBoard</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>)
   )
@@ -329,9 +302,9 @@
 <p>Parameters are validated using <a href="Request/GetStationBoard.html">GetStationBoard</a>, returns a <a href="ResponseTypes/StationBoard.html">StationBoard</a> object.</p>
 
           <div class="method-source-code" id="get_arrival_departure_board-source">
-            <pre><span class="ruby-comment"># File lib/ldbws/service.rb, line 91</span>
+            <pre><span class="ruby-comment"># File lib/ldbws/service.rb, line 69</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_arrival_departure_board</span>(<span class="ruby-identifier">params</span>)
-  <span class="ruby-identifier">do_request</span>(
+  <span class="ruby-identifier">request</span>(
     <span class="ruby-string">&quot;http://thalesgroup.com/RTTI/2012-01-13/ldb/GetArrivalDepartureBoard&quot;</span>,
     <span class="ruby-constant">Request</span><span class="ruby-operator">::</span><span class="ruby-constant">GetStationBoard</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>)
   )
@@ -376,9 +349,9 @@
 <p>Parameters are validated using <a href="Request/GetStationBoardWithDetails.html">GetStationBoardWithDetails</a>, returns a <a href="ResponseTypes/StationBoardWithDetails.html">StationBoardWithDetails</a> object.</p>
 
           <div class="method-source-code" id="get_dep_board_with_details-source">
-            <pre><span class="ruby-comment"># File lib/ldbws/service.rb, line 102</span>
+            <pre><span class="ruby-comment"># File lib/ldbws/service.rb, line 80</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_dep_board_with_details</span>(<span class="ruby-identifier">params</span>)
-  <span class="ruby-identifier">do_request</span>(
+  <span class="ruby-identifier">request</span>(
     <span class="ruby-string">&quot;http://thalesgroup.com/RTTI/2015-05-14/ldb/GetDepBoardWithDetails&quot;</span>,
     <span class="ruby-constant">Request</span><span class="ruby-operator">::</span><span class="ruby-constant">GetStationBoardWithDetails</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>)
   )
@@ -407,9 +380,9 @@
 <p>Parameters are validated using <a href="Request/GetStationBoard.html">GetStationBoard</a>, returns a <a href="ResponseTypes/StationBoard.html">StationBoard</a> object.</p>
 
           <div class="method-source-code" id="get_departure_board-source">
-            <pre><span class="ruby-comment"># File lib/ldbws/service.rb, line 69</span>
+            <pre><span class="ruby-comment"># File lib/ldbws/service.rb, line 47</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_departure_board</span>(<span class="ruby-identifier">params</span>)
-  <span class="ruby-identifier">do_request</span>(
+  <span class="ruby-identifier">request</span>(
     <span class="ruby-string">&quot;http://thalesgroup.com/RTTI/2012-01-13/ldb/GetDepartureBoard&quot;</span>,
     <span class="ruby-constant">Request</span><span class="ruby-operator">::</span><span class="ruby-constant">GetStationBoard</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>)
   )
@@ -454,9 +427,9 @@
 <p>Parameters are validated using <a href="Request/GetDeparturesBoardWithDetails.html">GetDeparturesBoardWithDetails</a>, returns a <a href="ResponseTypes/DeparturesBoardWithDetails.html">DeparturesBoardWithDetails</a> object.</p>
 
           <div class="method-source-code" id="get_fastest_departures_with_details-source">
-            <pre><span class="ruby-comment"># File lib/ldbws/service.rb, line 168</span>
+            <pre><span class="ruby-comment"># File lib/ldbws/service.rb, line 146</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_fastest_departures_with_details</span>(<span class="ruby-identifier">params</span>)
-  <span class="ruby-identifier">do_request</span>(
+  <span class="ruby-identifier">request</span>(
     <span class="ruby-string">&quot;http://thalesgroup.com/RTTI/2015-05-14/ldb/GetFastestDeparturesWithDetails&quot;</span>,
     <span class="ruby-constant">Request</span><span class="ruby-operator">::</span><span class="ruby-constant">GetDeparturesBoardWithDetails</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>)
   )
@@ -482,9 +455,9 @@
 <p>Parameters are validated using <a href="Request/GetDeparturesBoard.html">GetDeparturesBoard</a>, returns a <a href="ResponseTypes/DeparturesBoard.html">DeparturesBoard</a> object.</p>
 
           <div class="method-source-code" id="get_next_departures-source">
-            <pre><span class="ruby-comment"># File lib/ldbws/service.rb, line 135</span>
+            <pre><span class="ruby-comment"># File lib/ldbws/service.rb, line 113</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_next_departures</span>(<span class="ruby-identifier">params</span>)
-  <span class="ruby-identifier">do_request</span>(
+  <span class="ruby-identifier">request</span>(
     <span class="ruby-string">&quot;http://thalesgroup.com/RTTI/2015-05-14/ldb/GetNextDepartures&quot;</span>,
     <span class="ruby-constant">Request</span><span class="ruby-operator">::</span><span class="ruby-constant">GetDeparturesBoard</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>)
   )
@@ -510,9 +483,9 @@
 <p>Parameters are validated using <a href="Request/GetDeparturesBoardWithDetails.html">GetDeparturesBoardWithDetails</a>, returns a <a href="ResponseTypes/DeparturesBoardWithDetails.html">DeparturesBoardWithDetails</a> object.</p>
 
           <div class="method-source-code" id="get_next_departures_with_details-source">
-            <pre><span class="ruby-comment"># File lib/ldbws/service.rb, line 157</span>
+            <pre><span class="ruby-comment"># File lib/ldbws/service.rb, line 135</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_next_departures_with_details</span>(<span class="ruby-identifier">params</span>)
-  <span class="ruby-identifier">do_request</span>(
+  <span class="ruby-identifier">request</span>(
     <span class="ruby-string">&quot;http://thalesgroup.com/RTTI/2015-05-14/ldb/GetNextDeparturesWithDetails&quot;</span>,
     <span class="ruby-constant">Request</span><span class="ruby-operator">::</span><span class="ruby-constant">GetDeparturesBoardWithDetails</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>)
   )
@@ -538,9 +511,9 @@
 <p>Parameters are validated using <a href="Request/GetServiceDetails.html">GetServiceDetails</a>, returns a <a href="ResponseTypes/ServiceDetails.html">ServiceDetails</a> object.</p>
 
           <div class="method-source-code" id="get_service_details-source">
-            <pre><span class="ruby-comment"># File lib/ldbws/service.rb, line 179</span>
+            <pre><span class="ruby-comment"># File lib/ldbws/service.rb, line 157</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_service_details</span>(<span class="ruby-identifier">params</span>)
-  <span class="ruby-identifier">do_request</span>(
+  <span class="ruby-identifier">request</span>(
     <span class="ruby-string">&quot;http://thalesgroup.com/RTTI/2012-01-13/ldb/GetServiceDetails&quot;</span>,
     <span class="ruby-constant">Request</span><span class="ruby-operator">::</span><span class="ruby-constant">GetServiceDetails</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>)
   )

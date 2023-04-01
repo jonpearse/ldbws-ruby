@@ -1,2 +1,8 @@
 .env
 .ruby_version
+
+# Top-level Ruby files are generally silly test scripts + can be safely ignored
+/*.rb
+
+# also, ignore built gems
+/*.gem
