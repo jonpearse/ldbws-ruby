@@ -1,4 +1,4 @@
-Sat, 01 Apr 2023 21:01:14 +0100
+Sat, 01 Apr 2023 21:01:21 +0100
 LICENSE	Thu, 06 Oct 2022 18:25:44 +0100
 README.md	Sat, 01 Apr 2023 21:01:11 +0100
 ldbws-1.0.0.gem	Sat, 01 Apr 2023 18:59:14 +0100
@@ -14,7 +14,7 @@ lib/ldbws/response_types/parsing_functions.rb	Sat, 01 Apr 2023 18:55:20 +0100
 lib/ldbws/response_types/service_details.rb	Sat, 01 Apr 2023 18:56:26 +0100
 lib/ldbws/response_types/service_item.rb	Sat, 01 Apr 2023 18:56:26 +0100
 lib/ldbws/response_types/station_board.rb	Sat, 01 Apr 2023 18:55:20 +0100
-lib/ldbws/service.rb	Sat, 01 Apr 2023 21:01:11 +0100
+lib/ldbws/service.rb	Sat, 01 Apr 2023 21:01:18 +0100
 lib/ldbws/utils.rb	Sat, 01 Apr 2023 18:57:09 +0100
 lib/ldbws/version.rb	Sat, 01 Apr 2023 18:55:20 +0100
-lib/ldbws.rb	Sat, 01 Apr 2023 21:01:11 +0100
+lib/ldbws.rb	Sat, 01 Apr 2023 21:01:18 +0100
