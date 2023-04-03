@@ -121,7 +121,7 @@ module Ldbws
     #
     # Parameters are validated using GetDeparturesBoard[rdoc-ref:Request::GetDeparturesBoard], returns a
     # DeparturesBoard[rdoc-ref:ResponseTypes::DeparturesBoard] object.
-    def get_next_departures(params)
+    def get_fastest_departures(params)
       request(
         "http://thalesgroup.com/RTTI/2015-05-14/ldb/GetFastestDepartures",
         Request::GetDeparturesBoard.new(params)

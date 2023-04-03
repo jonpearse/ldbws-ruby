@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ldbws (1.0.1)
+    ldbws (1.0.2)
       dry-schema (~> 1.13)
       faraday (~> 2.7)
       nokogiri (~> 1.14)

@@ -94,6 +94,7 @@
     <li ><a href="#method-i-get_dep_board_with_details">#get_dep_board_with_details</a>
     <li ><a href="#method-i-get_departure_board">#get_departure_board</a>
     <li ><a href="#method-i-get_departure_board_with_details">#get_departure_board_with_details</a>
+    <li ><a href="#method-i-get_fastest_departures">#get_fastest_departures</a>
     <li ><a href="#method-i-get_fastest_departures_with_details">#get_fastest_departures_with_details</a>
     <li ><a href="#method-i-get_next_departures">#get_next_departures</a>
     <li ><a href="#method-i-get_next_departures_with_details">#get_next_departures_with_details</a>
@@ -410,6 +411,34 @@
         <div class="aliases">
           Alias for: <a href="Service.html#method-i-get_dep_board_with_details">get_dep_board_with_details</a>
         </div>
+      </div>
+
+      <div id="method-i-get_fastest_departures" class="method-detail ">
+        <div class="method-header">
+          <div class="method-heading">
+            <span class="method-name">get_fastest_departures</span><span
+              class="method-args">(params)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+        </div>
+
+        <div class="method-description">
+          <p>Retrieves the fastest departures from one station to one or many others.</p>
+
+<p>Parameters are validated using <a href="Request/GetDeparturesBoard.html">GetDeparturesBoard</a>, returns a <a href="ResponseTypes/DeparturesBoard.html">DeparturesBoard</a> object.</p>
+
+          <div class="method-source-code" id="get_fastest_departures-source">
+            <pre><span class="ruby-comment"># File lib/ldbws/service.rb, line 124</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_fastest_departures</span>(<span class="ruby-identifier">params</span>)
+  <span class="ruby-identifier">request</span>(
+    <span class="ruby-string">&quot;http://thalesgroup.com/RTTI/2015-05-14/ldb/GetFastestDepartures&quot;</span>,
+    <span class="ruby-constant">Request</span><span class="ruby-operator">::</span><span class="ruby-constant">GetDeparturesBoard</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>)
+  )
+<span class="ruby-keyword">end</span></pre>
+          </div>
+        </div>
+
+
       </div>
 
       <div id="method-i-get_fastest_departures_with_details" class="method-detail ">

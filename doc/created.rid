@@ -1,8 +1,8 @@
-Mon, 03 Apr 2023 16:32:07 +0100
+Mon, 03 Apr 2023 16:59:36 +0100
 LICENSE	Thu, 06 Oct 2022 18:25:44 +0100
-README.md	Mon, 03 Apr 2023 16:14:38 +0100
-ldbws-1.0.1.gem	Mon, 03 Apr 2023 16:31:55 +0100
-lib/ldbws/request/base.rb	Sun, 02 Apr 2023 11:45:01 +0100
+README.md	Mon, 03 Apr 2023 16:32:49 +0100
+ldbws-1.0.1.gem	Mon, 03 Apr 2023 16:34:55 +0100
+lib/ldbws/request/base.rb	Mon, 03 Apr 2023 16:32:49 +0100
 lib/ldbws/request/get_departures_board.rb	Sat, 01 Apr 2023 18:55:20 +0100
 lib/ldbws/request/get_service_details.rb	Sat, 01 Apr 2023 18:55:20 +0100
 lib/ldbws/request/get_station_board.rb	Sat, 01 Apr 2023 18:55:20 +0100
@@ -14,7 +14,7 @@ lib/ldbws/response_types/parsing_functions.rb	Sat, 01 Apr 2023 18:55:20 +0100
 lib/ldbws/response_types/service_details.rb	Sat, 01 Apr 2023 18:56:26 +0100
 lib/ldbws/response_types/service_item.rb	Sat, 01 Apr 2023 18:56:26 +0100
 lib/ldbws/response_types/station_board.rb	Sat, 01 Apr 2023 18:55:20 +0100
-lib/ldbws/service.rb	Sun, 02 Apr 2023 11:45:01 +0100
+lib/ldbws/service.rb	Mon, 03 Apr 2023 16:43:39 +0100
 lib/ldbws/utils.rb	Sat, 01 Apr 2023 18:57:09 +0100
-lib/ldbws/version.rb	Mon, 03 Apr 2023 16:12:40 +0100
-lib/ldbws.rb	Sun, 02 Apr 2023 11:45:01 +0100
+lib/ldbws/version.rb	Mon, 03 Apr 2023 16:59:33 +0100
+lib/ldbws.rb	Mon, 03 Apr 2023 16:32:49 +0100
