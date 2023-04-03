@@ -1,0 +1,14 @@
+# Reminder: you can list affected files via
+#
+#  git ls-files | xargs git check-attr -a
+#
+
+# =================================================================================
+# Mark files as being automatically-generated so they get minimised in github diffs
+# =================================================================================
+
+# rdoc
+doc/**/* linguist-generated
+
+# Lockfiles
+Gemfile.lock linguist-generated
