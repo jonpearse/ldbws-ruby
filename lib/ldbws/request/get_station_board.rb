@@ -38,6 +38,7 @@ module Ldbws::Request
         # CRSes should always be upcased
         params[:crs].upcase!
         params[:filter_crs].upcase! if params[:filter_crs]
+        params[:filter_type].downcase! if params[:filter_crs]
 
         # filter type isn’t needed if we’re not filtering
         params.delete(:filter_type) unless params[:filter_crs]
