@@ -16,6 +16,8 @@ module Ldbws::Request
   class GetStationBoard < Base
     # :nodoc:
     SCHEMA = Dry::Schema.Params do
+      config.validate_keys = true
+
       required(:crs).filled(Types::Crs)
       optional(:num_rows).filled(:integer)
       optional(:filter_crs).filled(Types::Crs)

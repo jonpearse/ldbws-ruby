@@ -14,6 +14,8 @@ module Ldbws::Request
   class GetDeparturesBoard < Base
     # :nodoc:
     SCHEMA = Dry::Schema.Params do
+      config.validate_keys = true
+
       required(:crs).filled(Types::Crs)
       required(:filter_list).array(Types::Crs, min_size?: 1)
       optional(:time_offset).filled(:integer)

@@ -10,6 +10,8 @@ module Ldbws::Request
   class GetServiceDetails < Base
     # :nodoc:
     SCHEMA = Dry::Schema.Params do
+      config.validate_keys = true
+
       required(:service_id).filled(:string)
     end
 
