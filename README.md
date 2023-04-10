@@ -1,18 +1,25 @@
-# ldbws-ruby
+# ldbws
 
-I’ll write a proper readme/howto at some point, but short version is that this is a Ruby wrapper around [Network Rail‘s Live Departure Board web service](https://lite.realtime.nationalrail.co.uk/OpenLDBWS/) (LDBWS/OpenLDBWS)—I’ve trawled through their XSD files so you don’t have to =)
+This is a wrapper around [Network Rail‘s Live Departure Board web service](https://lite.realtime.nationalrail.co.uk/OpenLDBWS/) (LDBWS/OpenLDBWS), allowing a much simpler querying interface. As best I can tell, all functionality is supported, although the gem currently only queries the public API.
 
-I built it for a project I’m hacking at + thought I’d release it into the world. It’s rough and ready right now, but it should be somewhat functional.
+You will need to [register for an API key](http://realtime.nationalrail.co.uk/OpenLDBWSRegistration/) in order to use this gem.
 
-## HOWTO
 
-All operations are supported, in `snake_case`, thus:
+## Installation/usage
+
+Add `ldbws` to your Gemfile
+
+```ruby
+gem "ldbws"
+```
+
+As long as you have an API key, you should be able to make requests against the service. Note that, per Ruby tradition, methods are written in `snake_case`, thus:
 
 ```ruby
 require "ldbws"
 
 service = Ldbws.service(YOUR_API_TOKEN)
-result = service.get_departure_board(crs: "CDF")
+result = service.get_departure_board(crs: "CDF") # ie GetDepartureBoard
 
 puts "TIME   PLAT  TO"
 result.train_services.each do |service|
@@ -34,9 +41,8 @@ end
 # [etc]
 ```
 
-### A note about rate limiting
-
-LDBWS uses rate-limiting for free access: while this <i>probably</i> isn’t going to be an issue for the casual user, you may want to consider using a cache in front of this gem, just in case.
+Basic validation/coercion of parameters is provided (via [Dry::Schema](https://dry-rb.org/gems/dry-schema/)), but this is not exhaustive and should not be relied upon.
+In particular, CRS codes—the three letter identifier for each station—are _not_ validated beyond “is it a three-letter string”.
 
 ## Error-handling
 
