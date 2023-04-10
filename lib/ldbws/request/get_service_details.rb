@@ -24,7 +24,7 @@ module Ldbws::Request
     # :nodoc:
     def to_soap_params
       {
-        serviceID: @params[:service_id],
+        serviceID: @params[:service_id].upcase,
       }
     end
   end
