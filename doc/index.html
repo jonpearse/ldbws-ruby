@@ -111,20 +111,25 @@
 <main role="main">
 
 
-<h1 id="label-ldbws-ruby">ldbws-ruby<span><a href="#label-ldbws-ruby">&para;</a> <a href="#top">&uarr;</a></span></h1>
+<h1 id="label-ldbws">ldbws<span><a href="#label-ldbws">&para;</a> <a href="#top">&uarr;</a></span></h1>
 
-<p>I’ll write a proper readme/howto at some point, but short version is that this is a Ruby wrapper around <a href="https://lite.realtime.nationalrail.co.uk/OpenLDBWS/">Network Rail‘s Live Departure Board web service</a> (LDBWS/OpenLDBWS)—I’ve trawled through their XSD files so you don’t have to =)</p>
+<p>This is a wrapper around <a href="https://lite.realtime.nationalrail.co.uk/OpenLDBWS/">Network Rail‘s Live Departure Board web service</a> (LDBWS/OpenLDBWS), allowing a much simpler querying interface. As best I can tell, all functionality is supported, although the gem currently only queries the public API.</p>
 
-<p>I built it for a project I’m hacking at + thought I’d release it into the world. It’s rough and ready right now, but it should be somewhat functional.</p>
+<p>You will need to <a href="http://realtime.nationalrail.co.uk/OpenLDBWSRegistration/">register for an API key</a> in order to use this gem.</p>
 
-<h2 id="label-HOWTO">HOWTO<span><a href="#label-HOWTO">&para;</a> <a href="#top">&uarr;</a></span></h2>
+<h2 id="label-Installation-2Fusage">Installation/usage<span><a href="#label-Installation-2Fusage">&para;</a> <a href="#top">&uarr;</a></span></h2>
 
-<p>All operations are supported, in <code>snake_case</code>, thus:</p>
+<p>Add <code>ldbws</code> to your Gemfile</p>
+
+<pre class="ruby"><span class="ruby-identifier">gem</span> <span class="ruby-string">&quot;ldbws&quot;</span>
+</pre>
+
+<p>As long as you have an API key, you should be able to make requests against the service. Note that, per Ruby tradition, methods are written in <code>snake_case</code>, thus:</p>
 
 <pre class="ruby"><span class="ruby-identifier">require</span> <span class="ruby-string">&quot;ldbws&quot;</span>
 
 <span class="ruby-identifier">service</span> = <span class="ruby-constant">Ldbws</span>.<span class="ruby-identifier">service</span>(<span class="ruby-constant">YOUR_API_TOKEN</span>)
-<span class="ruby-identifier">result</span> = <span class="ruby-identifier">service</span>.<span class="ruby-identifier">get_departure_board</span>(<span class="ruby-value">crs:</span> <span class="ruby-string">&quot;CDF&quot;</span>)
+<span class="ruby-identifier">result</span> = <span class="ruby-identifier">service</span>.<span class="ruby-identifier">get_departure_board</span>(<span class="ruby-value">crs:</span> <span class="ruby-string">&quot;CDF&quot;</span>) <span class="ruby-comment"># ie GetDepartureBoard</span>
 
 <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;TIME   PLAT  TO&quot;</span>
 <span class="ruby-identifier">result</span>.<span class="ruby-identifier">train_services</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">service</span><span class="ruby-operator">|</span>
@@ -146,9 +151,7 @@
 <span class="ruby-comment"># [etc]</span>
 </pre>
 
-<h3 id="label-A+note+about+rate+limiting">A note about rate limiting<span><a href="#label-A+note+about+rate+limiting">&para;</a> <a href="#top">&uarr;</a></span></h3>
-
-<p>LDBWS uses rate-limiting for free access: while this <em>probably</em> isn’t going to be an issue for the casual user, you may want to consider using a cache in front of this gem, just in case.</p>
+<p>Basic validation/coercion of parameters is provided (via <a href="https://dry-rb.org/gems/dry-schema/">Dry::Schema</a>), but this is not exhaustive and should not be relied upon. In particular, CRS codes—the three letter identifier for each station—are <em>not</em> validated beyond “is it a three-letter string”.</p>
 
 <h2 id="label-Error-handling">Error-handling<span><a href="#label-Error-handling">&para;</a> <a href="#top">&uarr;</a></span></h2>
 
