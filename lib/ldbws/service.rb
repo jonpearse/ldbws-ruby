@@ -202,17 +202,15 @@ module Ldbws
     end
 
     def perform_soap_request(action, body)
-      uri = URI(SERVICE_URI)
-
       conn = Faraday.new(
-        url: "#{uri.scheme}://#{uri.host}",
+        url: "#{SERVICE_URI.scheme}://#{SERVICE_URI.host}",
         headers: {
           'Content-Type': "text/xml",
           'SOAPAction': action,
         },
       )
 
-      conn.post(uri.path, body).body
+      conn.post(SERVICE_URI.path, body).body
     end
 
     def extract_error(xml)
