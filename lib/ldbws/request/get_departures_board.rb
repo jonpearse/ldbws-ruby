@@ -28,6 +28,8 @@ module Ldbws::Request
     # :nodoc:
     RESULT_TYPE = Ldbws::ResponseTypes::DeparturesBoard
 
+    protected
+
     # :nodoc:
     def to_soap_params
       @params.tap do |params|

@@ -21,6 +21,8 @@ module Ldbws::Request
     # :nodoc:
     RESULT_TYPE = Ldbws::ResponseTypes::ServiceDetails
 
+    protected
+
     # :nodoc:
     def to_soap_params
       {
