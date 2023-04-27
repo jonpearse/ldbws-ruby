@@ -18,6 +18,12 @@ module Ldbws::ResponseTypes
     collection :nrcc_messages, "message", StrippedString
     property :platform_available, Boolean, default: false
     property :are_services_available, Boolean, default: true
+
+    # Returns a combined list of all services (train, bus, and ferry), ordered by scheduled time of departure or
+    # arrival.
+    def all_services
+      (train_services + bus_services + ferry_services).sort_by { |s| s.std || s.sta }
+    end
   end
 
   # Represents a station arrival/departure board in LDBWS.
