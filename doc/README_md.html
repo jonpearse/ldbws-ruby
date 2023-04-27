@@ -155,9 +155,9 @@
 <p>This is raised when parameter validation fails. Details about exactly which parameters and why can be found using the <code>#messages</code>, and is provided in hash format, thus:</p>
 
 <pre class="ruby"><span class="ruby-keyword">begin</span>
-        <span class="ruby-identifier">service</span>.<span class="ruby-identifier">get_departure_board</span>
+  <span class="ruby-identifier">service</span>.<span class="ruby-identifier">get_departure_board</span>
 <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Ldbws</span><span class="ruby-operator">::</span><span class="ruby-constant">Request</span><span class="ruby-operator">::</span><span class="ruby-constant">ParamValidationError</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
-        <span class="ruby-comment"># e = { crs: &quot;is missing&quot; }</span>
+  <span class="ruby-comment"># e = { crs: &quot;is missing&quot; }</span>
 <span class="ruby-keyword">end</span>
 </pre>
 

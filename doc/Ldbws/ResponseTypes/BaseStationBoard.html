@@ -67,6 +67,15 @@
     
     
     
+<!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    <li ><a href="#method-i-all_services">#all_services</a>
+  </ul>
+</div>
+
   </div>
 </nav>
 
@@ -95,6 +104,36 @@
 
 
 
+
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+      <div id="method-i-all_services" class="method-detail ">
+        <div class="method-header">
+          <div class="method-heading">
+            <span class="method-name">all_services</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+        </div>
+
+        <div class="method-description">
+          <p>Returns a combined list of all services (train, bus, and ferry), ordered by scheduled time of departure or arrival.</p>
+
+          <div class="method-source-code" id="all_services-source">
+            <pre><span class="ruby-comment"># File lib/ldbws/response_types/station_board.rb, line 24</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">all_services</span>
+  (<span class="ruby-identifier">train_services</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">bus_services</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">ferry_services</span>).<span class="ruby-identifier">sort_by</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">std</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">sta</span> }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+        </div>
+
+
+      </div>
+
+    </section>
 
   </section>
 </main>

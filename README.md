@@ -54,9 +54,9 @@ This is raised when parameter validation fails. Details about exactly which para
 
 ```ruby
 begin
-	service.get_departure_board
+  service.get_departure_board
 rescue Ldbws::Request::ParamValidationError => e
-	# e = { crs: "is missing" }
+  # e = { crs: "is missing" }
 end
 ```
 
