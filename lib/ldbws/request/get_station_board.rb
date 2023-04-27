@@ -21,7 +21,7 @@ module Ldbws::Request
       required(:crs).filled(Types::Crs)
       optional(:num_rows).filled(:integer)
       optional(:filter_crs).filled(Types::Crs)
-      optional(:filter_type).filled(Types::FilterType)
+      optional(:filter_type).filled(Types::String.enum("to", "from"))
       optional(:time_offset).filled(:integer)
       optional(:time_window).filled(:integer)
     end
@@ -32,6 +32,14 @@ module Ldbws::Request
     # :nodoc:
     RESULT_TYPE = Ldbws::ResponseTypes::StationBoard
 
+    def initialize(args)
+      # there doesn’t seem to be a nice way of getting Dry::Types to do a case-insensitive enum, so instead we’ll do
+      # some manual case-coersion here
+      args[:filter_type].downcase! if args[:filter_type]
+
+      super(args)
+    end
+
     protected
 
     # :nodoc:
@@ -40,7 +48,7 @@ module Ldbws::Request
         # CRSes should always be upcased
         params[:crs].upcase!
         params[:filter_crs].upcase! if params[:filter_crs]
-        params[:filter_type].downcase! if params[:filter_crs]
+        params[:filter_type].downcase! if params[:filter_type]
 
         # filter type isn’t needed if we’re not filtering
         params.delete(:filter_type) unless params[:filter_crs]

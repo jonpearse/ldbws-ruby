@@ -12,9 +12,6 @@ module Ldbws::Request # :nodoc:
 
     # A CRS code (eg ‘WAT’ for London Waterloo). These are not exhaustively validated.
     Crs = String.constrained(size: 3)
-
-    # A specific type used when filtering by CRS.
-    FilterType = String.enum("to", "from")
   end
 
   # \Base request type used whem querying LDBWS: provides basic functionality that can be overridden on a per-subclass

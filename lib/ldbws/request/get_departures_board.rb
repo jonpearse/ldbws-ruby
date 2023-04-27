@@ -17,7 +17,7 @@ module Ldbws::Request
       config.validate_keys = true
 
       required(:crs).filled(Types::Crs)
-      required(:filter_list).array(Types::Crs, min_size?: 1)
+      required(:filter_list).value(array[Types::Crs], min_size?: 1)
       optional(:time_offset).filled(:integer)
       optional(:time_window).filled(:integer)
     end
