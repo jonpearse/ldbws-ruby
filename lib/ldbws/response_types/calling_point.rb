@@ -12,7 +12,7 @@ module Ldbws::ResponseTypes
   # at:: the actual time (as a string)
   # cancelled::
   # length::
-  # detatch_front::
+  # detach_front::
   # formation:: information about the formation of the train
   # adhoc_alerts::
   # cancel_reason::
@@ -28,7 +28,7 @@ module Ldbws::ResponseTypes
     property :at, String
     property :cancelled, Boolean, selector: "isCancelled"
     property :length, Integer
-    property :detatch_front, Boolean, default: false
+    property :detach_front, Boolean, default: false
     property :formation, Formation
     collection :adhoc_alerts, "adhocAlertText", String
     property :cancel_reason, String
