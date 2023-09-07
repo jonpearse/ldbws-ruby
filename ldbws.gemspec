@@ -17,7 +17,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "dry-schema", "~> 1.13"
   spec.add_dependency "faraday", "~> 2.7"
-  spec.add_dependency "nokogiri", "~> 1.14"
+  spec.add_dependency "nokogiri", "~> 1.15"
 
   spec.add_development_dependency "rdoc", "~> 6.5.0"
   spec.add_development_dependency "rspec", "~> 3.11"
